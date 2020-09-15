@@ -17,20 +17,15 @@ const auth = new Auth();
 
 
 class Nav2 extends Component {
-  state = {
-    profile: {},
-  }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      profile: {}
+    }
+  }
 
   componentDidMount() {
-    //console.log('user profile: ' + JSON.stringify(this.state.profile, 2, null));
-    // console.log('History object: ' + JSON.stringify(history, 2, null));
-    // console.log('this.history: ' + this.history)
-    // console.log(history.replace)
-    // console.log('this.props.history: ' + this.props.history)
-  }
-
-  componentWillMount() {
     const { userProfile, getProfile, isAuthenticated } = this.props.auth;
     if (isAuthenticated()) {
       if (!userProfile) {
@@ -42,8 +37,9 @@ class Nav2 extends Component {
         this.setState({ profile: userProfile });
       }
     }
-    //console.log(isAuthenticated)
   }
+
+
 
   goTo(route) {
     //this.props.history.replace(`/${route}`)

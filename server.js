@@ -33,7 +33,7 @@ mongoose.Promise = global.Promise;
 
 //  'mongodb://localhost/hangman_options' ||
 
-let mongoConnect = 'mongodb://localhost/react-template-with-auth'
+let mongoConnect = 'mongodb://localhost:27017/skygem_tracker'
 // Connect to the Mongo DB
 mongoose.connect(
   mongoConnect, {
