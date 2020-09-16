@@ -31,46 +31,51 @@ class MainPage extends Component {
     }
   }
 
-  // Initial load of saved articles
+  // Initial load of user profile information
   componentDidMount() {
     if (this.state.authorized) {
       console.log(this.props.auth);
       const { userProfile, getProfile } = this.props.auth;
       if (!userProfile) {
+        console.log(this.state.profile)
         getProfile((err, profile) => {
-          this.setState({ profile });
+          if(err) {console.log(err)}
+          this.setState({ profile: profile}, ()=> {
+            console.log('Retrieved user profile: ' + JSON.stringify(profile, 2, null));
+            this.loadUser(profile.sub,"auth0_id",profile)
+           });  
+
         });
       } else {
-        this.setState({ profile: userProfile });
+        this.setState({ profile: userProfile }, ()=> {
+          console.log('Loaded user profile: ' + JSON.stringify(this.state.profile, 2, null));
+        });
       }
-
-      this.loadTestData();
     }
 
 
 
   };
 
-  // code to get biodiversity list
-  loadTestData = () => {
-
-    API.getUserData()
-      .then(
-        res => {
-          console.log("test data: " + JSON.stringify(res.data, null, 2))
-          console.log("First name in list: " + res.data[0]["name"])
-          this.setState({
-            names: res.data,
-            firstName: res.data[0]["name"]
-          })
-          console.log("names state: " + JSON.stringify(this.state.names, null, 2))
-        })
-      // console.log(res.data.response.docs);
-      .catch(err => console.log(err));
-  };
-
-  // This is a leftover from my template file but would like to leave it here in case I add 
-  // an entry form for feedback in the future
+  // load user data
+  loadUser = (id,field,profile) => {
+    API.getUser(id,field)
+    .then(
+      res => {
+        console.log("User data: " + JSON.stringify(res.data, null, 2))
+        if(res.data){this.setState({profile:res.data},()=>console.log(`User state profile: ${JSON.stringify(this.state.profile,null,2)}`))}
+        if(!res.data) {
+          API.createUser(profile)
+          .then(
+            res => {
+              console.log("New created user data: " + JSON.stringify(res.data, null, 2))
+              this.setState({profile:res.data},()=>console.log(`User state profile: ${JSON.stringify(this.state.profile,null,2)}`))
+            }
+          )
+        }
+      }
+    ) .catch(err=> console.log(err))
+  }
 
   // handle form input
   handleInputChange = event => {
@@ -87,14 +92,14 @@ class MainPage extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     const profile = this.state.profile
-
+    console.log(`Profile at page render: ${JSON.stringify(profile,null,2)}`)
     return (
       <Container fluid>
         <Row>
           <Nav2 auth={this.props.auth} />
         </Row>
         <Row>
-          <Jumbotron>
+          <Container>
             {
               !isAuthenticated() && (
                 <div>
@@ -108,12 +113,17 @@ class MainPage extends Component {
               isAuthenticated() && (
                 <Container fluid>
                   <Row>
-                    <h1>Hello {profile.given_name}: Time to Get Coding!!</h1>
+                    {profile.name ? (
+                      <h1>Hello {profile.name}: Time to Get Coding!!</h1>
+                    ):(
+                      <h1>Hello user</h1>
+                    )}
+                    
                   </Row>                                    
                 </Container> 
               )
             }
-          </Jumbotron>
+          </Container>
         </Row>
         <Row>
           {
@@ -128,7 +138,7 @@ class MainPage extends Component {
             !isAuthenticated() && (
               <Row>
                 <Container>
-                  <h3>If this the first time opening the app, please create a  new application in Auth0 and make sure that the client id and domain are properly set in the auth0-variables.js file and that the callback URLs are allowed in Auth0</h3>
+                  <h3>Log in to start tracking</h3>
                 </Container>
               </Row>
             )

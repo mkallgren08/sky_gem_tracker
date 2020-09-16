@@ -31,7 +31,7 @@ class Nav2 extends Component {
       if (!userProfile) {
         getProfile((err, profile) => {
           this.setState({ profile });
-          console.log('user profile: ' + JSON.stringify(this.state.profile, 2, null));
+          //console.log('user profile: ' + JSON.stringify(this.state.profile, 2, null));
         });
       } else {
         this.setState({ profile: userProfile });

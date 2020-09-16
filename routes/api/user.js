@@ -13,4 +13,11 @@ router
   .put(userController.update)
   .delete(userController.remove);
 
+// Matches with "/api/user/field/:id"
+router
+  .route("/field/:id/:field")
+  .get(userController.findOne)
+  .put(userController.update)
+  .delete(userController.remove);
+
 module.exports = router;

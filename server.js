@@ -33,7 +33,7 @@ mongoose.Promise = global.Promise;
 
 //  'mongodb://localhost/hangman_options' ||
 
-let mongoConnect = 'mongodb://localhost:27017/skygem_tracker'
+let mongoConnect = 'mongodb://mkallgren08:armageddon3M41@cluster0-shard-00-00.cmsrd.mongodb.net:27017,cluster0-shard-00-01.cmsrd.mongodb.net:27017,cluster0-shard-00-02.cmsrd.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-6cj8tc-shard-0&authSource=admin&retryWrites=true&w=majority'
 // Connect to the Mongo DB
 mongoose.connect(
   mongoConnect, {
@@ -50,7 +50,7 @@ db.on("error", function (error) {
 
 // Once logged in to the db through mongoose, log a success message
 db.once("open", function () {
-  console.log(`Mongoose connection to ${mongoConnect} successful.`);
+  console.log(`Mongoose connection to Mongo Atlas DB successful.`);
 });
 
 // Send every request to the React app

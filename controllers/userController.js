@@ -15,7 +15,15 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  findOne: function(req, res) {
+    console.log(req.params)
+    db.User
+      .findOne({[req.params.field]:req.params.id})
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
   create: function(req, res) {
+    console.log(JSON.stringify(req.body,null,2))
     db.User
       .create(req.body)
       .then(dbModel => res.json(dbModel))
