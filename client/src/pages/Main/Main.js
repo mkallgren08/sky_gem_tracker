@@ -3,6 +3,7 @@ import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import {Row, Container } from "../../components/Grid";
 import Nav2 from "../../components/Nav2";
+import {Form, Input, FormBtn} from "../../components/Form"
 import {Table,Table_Cell,Table_Row} from "../../components/Tables/Table_Components"
 import Tracking_Table from "../../components/Tables/Tracking_Table/Tracking_Table";
 
@@ -24,10 +25,12 @@ class MainPage extends Component {
     const { isAuthenticated } = this.props.auth;
 
     this.state = {
-      names: [],
       firstName: "",
       profile: {},
-      authorized: isAuthenticated()
+      authorized: isAuthenticated(),
+      newPlaythruName: "",
+      validName:false,
+      playthruData:[]
     }
   }
 
@@ -77,22 +80,50 @@ class MainPage extends Component {
     ) .catch(err=> console.log(err))
   }
 
+  createNewPlaythru = (id,name) =>{
+    console.log('Logic to come')
+  }
+
   // handle form input
   handleInputChange = event => {
     // Destructure the name and value properties off of event.target
     // Update the appropriate state
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
+    // console.log(`name: ${name}, value: ${value}`);
+    // this.setState({[name]: value},()=>console.log(this.state[name]));
+    this.setState({[name]: value}, ()=>{
+      if(this.state.newPlaythruName.length>0 ){this.setState({validName:true})} else {this.setState({validName:false})}
     });
-    this.readUserInput(event)
+    
   };
+
+  // handle form submission
+  newPlayThruSubmit = e => {
+    e.preventDefault();
+    console.log("Submission heard")
+    console.log(`New name: ${this.state.newPlaythruName}`)
+    let st=this.state
+    let names = st.profile.playthrough_names
+    let valid=true;
+    console.log(names)
+    // // checks if the newPlayThru name already exists in the user's profile
+    if(names.length>0){
+      names.forEach(el => {if(el===st.newPlaythruName){valid=false}});
+      if(valid){this.createNewPlaythru(st.profile._id,st.newPlaythruName)}
+        else{alert(`There's a problem with your submission, please try again!`)}
+    }
+
+      
+
+  }
+
+  testClick = msg => console.log(msg)
 
   // This is the function that renders the page in the client's window.
   render() {
     const { isAuthenticated } = this.props.auth;
     const profile = this.state.profile
-    console.log(`Profile at page render: ${JSON.stringify(profile,null,2)}`)
+    // console.log(`Profile at page render: ${JSON.stringify(profile,null,2)}`)
     return (
       <Container fluid>
         <Row>
@@ -129,7 +160,20 @@ class MainPage extends Component {
           {
             isAuthenticated() && (
               <Container fluid>
-                <Tracking_Table auth={this.props.auth}/>
+                <Row>
+                  <Form>
+                    <Input 
+                      onChange={this.handleInputChange.bind(this)}
+                      name='newPlaythruName'
+                    /> 
+                    <FormBtn onClick={this.newPlayThruSubmit.bind(this)} disabled={!this.state.validName}>
+                      <span>Click me!</span>
+                    </FormBtn>
+                  </Form>
+                </Row>
+                <Row>
+                  <Tracking_Table auth={this.props.auth}/>
+                </Row>
               </Container>
 
             )
