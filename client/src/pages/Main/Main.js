@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import Jumbotron from "../../components/Jumbotron";
+// import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import {Row, Container } from "../../components/Grid";
 import Nav2 from "../../components/Nav2";
 import {Form, Input, FormBtn} from "../../components/Form"
-import {Table,Table_Cell,Table_Row} from "../../components/Tables/Table_Components"
+// import {Table,Table_Cell,Table_Row} from "../../components/Tables/Table_Components"
 import Tracking_Table from "../../components/Tables/Tracking_Table/Tracking_Table";
+import './Main.css';
+
 
 class MainPage extends Component {
   //==============================================================
@@ -19,9 +21,7 @@ class MainPage extends Component {
   //   this._handleKeyDown.bind(this)
   // )
   constructor(props) {
-
     super(props);
-
     const { isAuthenticated } = this.props.auth;
 
     this.state = {

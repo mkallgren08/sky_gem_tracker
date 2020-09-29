@@ -1,0 +1,42 @@
+
+
+th {
+  font-size: 20px;
+  font-weight:bold;
+}
+
+.trackingTable{
+  margin: 20px;
+  display: flexbox;
+  flex-wrap:nowrap;
+  justify-content: center;
+}
+
+
+.trackingTable-row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:nowrap;
+}
+
+.trackingTable-cell--header{
+  flex:1;
+  font-size: 20px;
+  font-weight:bold;
+}
+
+.trackingTable-cell{
+  font-size:15px
+}
+
+.trackingTable-picture{
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 20vh;
+  width: 50%;
+  cursor: pointer;
+}
+
+.trackingTable-wrapper{
+  width: 100%;
+}
