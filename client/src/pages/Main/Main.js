@@ -2,10 +2,10 @@ import React, { Component } from "react";
 // import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import {Row, Container } from "../../components/Grid";
-import Nav2 from "../../components/Nav2";
+import NavTwo from "../../components/NavTwo";
 import {Form, Input, FormBtn} from "../../components/Form"
 // import {Table,Table_Cell,Table_Row} from "../../components/Tables/Table_Components"
-import Tracking_Table from "../../components/Tables/Tracking_Table/Tracking_Table";
+import TrackingTable from "../../components/Tables/TrackingTable";
 import './Main.css';
 
 
@@ -61,7 +61,7 @@ class MainPage extends Component {
   };
 
   // load user data
-  loadUser = (id,field,profile) => {
+  loadUser=(id,field,profile)=> {
     API.getUser(id,field)
     .then(
       res => {
@@ -127,7 +127,7 @@ class MainPage extends Component {
     return (
       <Container fluid>
         <Row>
-          <Nav2 auth={this.props.auth} />
+          <NavTwo auth={this.props.auth} />
         </Row>
         <Row>
           <Container>
@@ -172,7 +172,7 @@ class MainPage extends Component {
                   </Form>
                 </Row>
                 <Row>
-                  <Tracking_Table auth={this.props.auth}/>
+                  <TrackingTable auth={this.props.auth}/>
                 </Row>
               </Container>
 

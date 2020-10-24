@@ -6,15 +6,16 @@ import './Tracking_Table.css'
 import gemdata from "../../../resources/static_info/gems/gems.js"
 
 
-class Tracking_Table extends Component {
+class TrackingTable extends Component {
   constructor(props){
     super(props);
     this.state = {
       profile: {},
       showImage: false,
       imageNum: 0,
+      imageDescription: '',
+      imageLocation: '',
       active: 'gems',
-      geminfo:[],
       gems: gemdata,
       playthruinfo:{
         // for each gem, include their number in this table if it has been checked off, otherwise exclude it
@@ -22,26 +23,28 @@ class Tracking_Table extends Component {
       }
     }
   }
-
   componentDidMount(){
     console.log(this.state[this.state.active])
   }
-
-  handleModalShow(num){
+  handleModalShow(num, info){
     console.log('Modal should be triggering', num)
+    console.log(info)
     this.setState({showImage: true, imageNum: num})
   }
-
   handleModalClose(){
     console.log('Modal closing')
     this.setState({showImage: false, imageNum: 0})
   }
-
-  toggleModal(){
-    console.log('toggling')
-    this.setState({showImage: this.state.showImage?false:true})
+  toggleModal(num, info){
+    console.log('toggling', num)
+    console.log(info)
+    this.setState({
+      imageLocation: this.state[this.state.active][this.state.active][num-1].location,
+      imageDescription: this.state[this.state.active][this.state.active][num-1].description,
+      imageNum: num,
+      showImage: this.state.showImage?false:true
+    })
   }
-
   render(){
     const { isAuthenticated } = this.props.auth;
 
@@ -67,7 +70,7 @@ class Tracking_Table extends Component {
                   className="trackingTable-picture" 
                   style={{backgroundImage: `url(${window.location.origin}/images/${this.state.active}/${item.number}.png)`}}
                   // onClick={this.handleModalShow.bind(this,item.number)} 
-                  onClick={this.toggleModal.bind(this)}
+                  onClick={this.toggleModal.bind(this, item.number, this.state[this.state.active][this.state.active][item.number-1])}
                 >
                 </div>  
               </div>
@@ -79,7 +82,10 @@ class Tracking_Table extends Component {
           <ImageModal 
             showThis={this.state.showImage}
             hideThis={this.handleModalClose.bind(this)}
-            imageNumber={this.state.imageNum}         
+            imageNumber={this.state.imageNum}
+            activeTable={this.state.active}
+            imageLocation={this.state.imageLocation}
+            imageDescription={this.state.imageDescription}         
           />
         </div>
       </div>
@@ -91,4 +97,4 @@ class Tracking_Table extends Component {
 
 }
 
-export default Tracking_Table;
+export default TrackingTable;

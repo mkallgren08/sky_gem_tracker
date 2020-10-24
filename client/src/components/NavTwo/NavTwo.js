@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Navbar, Button } from 'react-bootstrap';
-import Callback from '../../Callback/Callback.js';
+// import Callback from '../../Callback/Callback.js';
 import history from '../../history.js';
-import Auth from '../../Auth/Auth.js';
+//import Auth from '../../Auth/Auth.js';
 // import Auth from './Auth/Auth.js';
 import { Col, Container, Row } from "../Grid"
-
+import './NavTwo.css'
 
 
 // const auth = new Auth();
@@ -13,18 +13,16 @@ import { Col, Container, Row } from "../Grid"
 
 //const history = require('history')
 
-const auth = new Auth();
+// const auth = new Auth();
 
 
-class Nav2 extends Component {
-
-  constructor(props){
+class NavTwo extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       profile: {}
     }
   }
-
   componentDidMount() {
     const { userProfile, getProfile, isAuthenticated } = this.props.auth;
     if (isAuthenticated()) {
@@ -38,22 +36,16 @@ class Nav2 extends Component {
       }
     }
   }
-
-
-
   goTo(route) {
     //this.props.history.replace(`/${route}`)
     history.replace(`/${route}`)
   }
-
   login() {
     this.props.auth.login();
   }
-
   logout() {
     this.props.auth.logout();
   }
-
   render() {
     const { isAuthenticated } = this.props.auth;
     const profile = this.state.profile
@@ -63,7 +55,7 @@ class Nav2 extends Component {
         <Navbar fluid>
           <Row>
             <Col size="md-4">
-              <Navbar.Header>
+              <div className="navBar-button-wrapper">
                 <Navbar.Brand>
                   <a href="#">Auth0 - React</a>
                 </Navbar.Brand>
@@ -73,7 +65,7 @@ class Nav2 extends Component {
                   onClick={this.goTo.bind(this, 'home')}
                 >
                   Home
-            </Button>
+                </Button>
                 {
                   isAuthenticated() && (
                     <Button
@@ -82,7 +74,7 @@ class Nav2 extends Component {
                       onClick={this.goTo.bind(this, 'profile')}
                     >
                       Profile
-                  </Button>
+                    </Button>
                   )
                 }
                 {
@@ -94,7 +86,7 @@ class Nav2 extends Component {
                       onClick={this.login.bind(this)}
                     >
                       Log In
-                  </Button>
+                    </Button>
                   )
                 }
                 {
@@ -106,10 +98,10 @@ class Nav2 extends Component {
                       onClick={this.logout.bind(this)}
                     >
                       Log Out
-                  </Button>
+                    </Button>
                   )
                 }
-              </Navbar.Header>
+              </div>
             </Col>
             <Col size="md-8">
               {
@@ -121,8 +113,11 @@ class Nav2 extends Component {
           </Row>
         </Navbar>
       </Container>
-    );
+    )
   }
+  // render(){
+  //   return null
+  // }
 }
 
-export default Nav2;
+export default NavTwo;

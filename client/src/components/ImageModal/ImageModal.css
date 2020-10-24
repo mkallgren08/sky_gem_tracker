@@ -1,0 +1,13 @@
+
+/* Override Bootstrap positoning (it's wonky for some reason) */
+.modal-content{
+  top: 120px;
+}
+
+.imageModal-closeup-image{
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 60vh;
+  width: 100%;
+  cursor: pointer;
+}
