@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 
-class MainPage extends Component {
+class TestPage extends Component {
   constructor(props){
     super(props);
   }
 
-
   render (){
     return (
-      <h1>WELCOME TO THE MAIN PAGE</h1>
+      <h1>WELCOME TO THE TEST PAGE</h1>
     )
   }
 }
 
-export default MainPage
+export default TestPage

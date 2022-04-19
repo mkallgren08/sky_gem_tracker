@@ -1,32 +1,37 @@
 {
-  "name": "hangman",
-  "version": "1.0.0",
-  "description": "hangman game written using MERN stack",
-  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  },
   "scripts": {
-    "custom-init": "yarn install && cd client && touch .env && echo SKIP_PREFLIGHT_CHECK=true >> .env && yarn install && cd .. ",
     "server": "node server.js",
     "client": "cd client && npm run start",
     "start": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "cd client && npm run build",
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master",
+    "tsdeploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku heroku-dep-ts:master",
+    "initialload": "yarn install && cd client && yarn install && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "echo Skip build on Heroku"
   },
-  "author": "",
-  "license": "ISC",
+  "name": "sky_gem_tracker",
+  "description": "This is a basic 'template' file for making react apps with Auth0 support. I say 'template' because it is its own working app, based off of my Hangman application, but it's a simple app whose parts are fairly easy to convert and build upon.",
+  "version": "1.0.0",
+  "main": "server.js",
   "devDependencies": {
+    "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
   },
-  "dependencies": {
-    "auth0-js": "^9.0.2",
-    "axios": "^0.16.2",
-    "body-parser": "^1.18.2",
-    "concurrently": "^5.3.0",
-    "dotenv": "^6.2.0",
-    "express": "^4.15.4",
-    "mongoose": "^4.11.13",
-    "react-router-dom": "^4.2.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkallgren08/sky_gem_tracker.git"
   },
-  "heroku-run-build-script": true
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mkallgren08/sky_gem_tracker/issues"
+  },
+  "homepage": "https://github.com/mkallgren08/sky_gem_tracker#readme"
 }
